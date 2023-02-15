@@ -12,4 +12,9 @@ export const newConnectionHandler = (newClient) => {
 
     newClient.broadcast.emit("updateOnlineUsersList", onlineUsers);
   });
+
+  newClient.on("sendMessage", (message) => {
+    console.log("New Message:", message);
+    newClient.broadcast.emit("newMessage", message);
+  });
 };
