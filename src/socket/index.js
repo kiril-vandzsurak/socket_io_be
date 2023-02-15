@@ -17,4 +17,9 @@ export const newConnectionHandler = (newClient) => {
     console.log("New Message:", message);
     newClient.broadcast.emit("newMessage", message);
   });
+
+  newClient.on("disconnect", () => {
+    onlineUsers = onlineUsers.filter((user) => user.socketId !== newClient.id);
+    newClient.broadcast.emit("updateOnlineUsersList", onlineUsers);
+  });
 };
